@@ -2,7 +2,6 @@
 #
 # Exercise 2.4
 
-from asyncore import read
 import csv
 from pprint import pprint
 
