@@ -88,6 +88,8 @@ if __name__ == "__main__":
         print(f"{i:>10s}", end=" ")
     print('')
 
+    
+
     print(("-" * 10 + " ") * 4)
 
     for name, shares, price, change in report:

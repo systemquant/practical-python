@@ -1,5 +1,6 @@
 # pcost.py with csv module
 import csv, sys
+import enum
 
 def portfolio_cost(filename):
 
@@ -10,15 +11,16 @@ def portfolio_cost(filename):
 
         headers = next(rows)
 
-        for row in rows:
-            try:
-                nshares = int(row[1])
+        for rowno, row in enumerate(rows, start=1):
+            record = dict(zip(headers, row))
             
-            except Exception as e:
-                print("Seems to be shares missing: ", e)
+            try:
+                nshares = int(record['shares'])
+                price = float(record['price'])
+            except ValueError as e:
+                print(f'Row {rowno}: Bad row: {row}, error {e}')
             
             else:
-                price = float(row[2])
                 total_cost += nshares * price
 
         return total_cost
