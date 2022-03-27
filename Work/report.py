@@ -59,6 +59,28 @@ def make_report(portfolio, prices):
     return report
 
 
+def print_report(report):
+    headers = ("Name", "Shares", "Price", "Change")
+    for i in headers:
+        print(f"{i:>10s}", end=" ")
+    print("")
+
+    print(("-" * 10 + " ") * len(headers))
+
+    for name, shares, price, change in report:
+        price = round(price, 2)
+        price_str = "$" + str(price)
+
+        print(f"{name:>10s} {shares:>10d} {price_str:>10s} {change:>10.2f}")
+
+
+def portfolio_report(portfolio_filename, prices_filename):
+    portfolio = read_portfolio(portfolio_filename)
+    prices = read_prices(prices_filename)
+    report = make_report(portfolio, prices)
+    print_report(report)
+
+
 if __name__ == "__main__":
     """
     portfolio = read_portfolio('Data/portfolio.csv')
@@ -78,26 +100,7 @@ if __name__ == "__main__":
     pprint(prices)
     """
 
-    portfolio = read_portfolio("Data/portfolio.csv")
-    prices = read_prices("Data/prices.csv")
-
-    report = make_report(portfolio, prices)
-
-    headers = ("Name", "Shares", "Price", "Change")
-    for i in headers:
-        print(f"{i:>10s}", end=" ")
-    print('')
-
-    
-
-    print(("-" * 10 + " ") * 4)
-
-    for name, shares, price, change in report:
-        price = round(price, 2)
-        price_str = "$" + str(price)
-
-        print(f'{name:>10s} {shares:>10d} {price_str:>10s} {change:>10.2f}')
-
+    portfolio_report("Data/portfolio.csv", "Data/prices.csv")
 
 """    
     money = 0.0 # 자산
