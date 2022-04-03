@@ -7,7 +7,7 @@ def portfolio_cost(filename):
 
     total_cost = 0.0
     portfolio = report.read_portfolio(filename)
-    
+
     for rowno, record in enumerate(portfolio):
         try:
             nshares = int(record['shares'])
@@ -20,12 +20,19 @@ def portfolio_cost(filename):
 
     return total_cost
 
-if __name__ == '__main__':
-    if len(sys.argv) == 2:
-        filename = sys.argv[1]
-    else:
+
+def main(argv: list):
+    if len(argv) == 1:
         filename = 'Data/portfolio.csv'
+    elif len(argv) == 2:
+        filename = argv[1]
+    else:
+        raise SystemExit(f'Usage: {sys.argv[0]} portfile')
 
     cost = portfolio_cost(filename)
 
     print('Total cost', cost)
+
+
+if __name__ == '__main__':
+    main(sys.argv)
