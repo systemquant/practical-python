@@ -5,18 +5,16 @@
 #import csv
 import fileparse
 import sys
-from pprint import pprint
-
 
 def read_portfolio(filename):
-    portfolio = fileparse.parse_csv(
+    portfolio = fileparse.read_csv(
         filename, select=['name', 'shares', 'price'], types=[str, int, float])
 
     return portfolio
 
 
 def read_prices(filename):
-    prices = dict(fileparse.parse_csv(
+    prices = dict(fileparse.read_csv(
         filename, types=[str, float], has_headers=False))
 
     return prices

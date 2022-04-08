@@ -1,7 +1,5 @@
 # pcost.py
-import sys
 import report
-
 
 def portfolio_cost(filename):
 
@@ -27,7 +25,7 @@ def main(argv: list):
     elif len(argv) == 2:
         filename = argv[1]
     else:
-        raise SystemExit(f'Usage: {sys.argv[0]} portfile')
+        raise SystemExit(f'Usage: {argv[0]} portfile')
 
     cost = portfolio_cost(filename)
 
@@ -35,4 +33,5 @@ def main(argv: list):
 
 
 if __name__ == '__main__':
+    import sys
     main(sys.argv)

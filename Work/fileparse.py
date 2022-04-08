@@ -1,9 +1,9 @@
 # fileparse.py
 #
 # Exercise 3.3
-import collections
+import collections.abc as collections
 import csv
-import zlib
+import gzip
 import pathlib
 
 
@@ -73,7 +73,10 @@ def read_csv(filename: str, select: bool = None, types: list = [], has_headers: 
             return parse_csv(f, select, types, has_headers, delimiter, silence_errors)
 
     else:
-        
+        suffix_dict = {'.csv.gz': gzip.open(filename, 'rt')}
+        with suffix_dict[''.join(suffix_list)] as f:
+            return parse_csv(f, select, types, has_headers, delimiter, silence_errors)
+
         '''
         # Decompress
         with open(filename, 'rb') as f:
