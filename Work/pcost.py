@@ -2,23 +2,9 @@
 import report
 
 def portfolio_cost(filename):
-
-    # total_cost = 0.0
     portfolio = report.read_portfolio(filename)
-
+    
     return sum([s['shares'] * s['price'] for s in portfolio])
-
-    # for rowno, record in enumerate(portfolio):
-    #     try:
-    #         nshares = int(record['shares'])
-    #         price = float(record['price'])
-    #     except ValueError as e:
-    #         print(f'Row {rowno}: Bad line: {record}, error {e}')
-
-    #     else:
-    #         total_cost += nshares * price
-
-    # return total_cost
 
 
 def main(argv: list):

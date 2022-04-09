@@ -39,8 +39,9 @@ def make_report(portfolio, prices):
         # print(f'{name} 잔고 손익: {profit_indiv}')
 
         # money += prices[name] * shares
+        summary = (name, shares, prices[name], change)
 
-        report.append((name, shares, prices[name], change))
+        report.append(summary)
 
     return report
 
