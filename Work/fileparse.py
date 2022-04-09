@@ -15,7 +15,7 @@ def parse_csv(file, select: bool = None, types: list = [], has_headers: bool = T
     # Filetype Shielder
     if isinstance(file, str):
         raise TypeError(f"Type {type(file)} is not compatible")
-    
+
     elif not(isinstance(file, collections.Iterable)):
         raise TypeError(f"Type {type(file)} is not iterable")
 
@@ -132,7 +132,7 @@ if __name__ == "__main__":
     # portfolio = read_csv('Data/missing.csv',
     #                       types=[str, int, float], silence_errors=True)
     # print(portfolio2)
-    
+
     portfolio3 = read_csv(
         'Data/portfolio.csv.gz', select=['name', 'shares', 'price'], types=[str, int, float])
     print(portfolio3)
