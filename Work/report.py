@@ -3,13 +3,16 @@
 # Exercise 2.4
 
 #import csv
+import stock
 import fileparse
 import sys
 
-def read_portfolio(filename):
-    portfolio = fileparse.read_csv(
-        filename, select=['name', 'shares', 'price'], types=[str, int, float])
 
+def read_portfolio(filename):
+    portdicts = fileparse.read_csv(
+        filename, select=['name', 'shares', 'price'], types=[str, int, float])
+    portfolio = [stock.Stock(name=s['name'], shares=s['shares'], price=s['price']) for s in portdicts]
+    
     return portfolio
 
 
@@ -25,16 +28,16 @@ def make_report(portfolio, prices):
 
     # print(f'{"Name":>10s}  {"Shares":>10s}  {"Price":>10s}  {"Change":>10s}')
 
-    for dict in portfolio:
-        name = dict["name"]
-        shares = dict["shares"]
+    for stock in portfolio:
+        name = stock.name
+        shares = stock.shares
         now_price = prices[name]
 
-        profit_indiv = now_price * shares - dict["price"] * shares
+        profit_indiv = now_price * shares - stock.price * shares
         # profit += profit_indiv
         # total_cost += dict['price'] * shares
 
-        change = now_price - dict["price"]
+        change = now_price - stock.price
 
         # print(f'{name} 잔고 손익: {profit_indiv}')
 

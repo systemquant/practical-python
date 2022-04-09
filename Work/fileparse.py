@@ -76,7 +76,7 @@ def read_csv(filename: str, select: bool = None, types: list = [], has_headers: 
         suffix_dict = {'.csv.gz': gzip.open(filename, 'rt')}
         with suffix_dict[''.join(suffix_list)] as f:
             return parse_csv(f, select, types, has_headers, delimiter, silence_errors)
-
+        
         '''
         # Decompress
         with open(filename, 'rb') as f:
@@ -96,6 +96,7 @@ def read_csv(filename: str, select: bool = None, types: list = [], has_headers: 
                         decom = zlib.decompress(f.read())
                         print(decom, type(decom))
                         
+                        
                     else:
                         raise TypeError(
                             f'Type {zip_type} is not supported to decompress')
@@ -107,32 +108,7 @@ def read_csv(filename: str, select: bool = None, types: list = [], has_headers: 
 
 
 if __name__ == "__main__":
-    # portfolio = read_csv("Data/portfolio.csv", types=[str, int, float])
-    # print(portfolio)
-
-    # print("")
-    # shares_held = read_csv(
-    #     "Data/portfolio.csv", select=["name", "shares"], types=[str, int]
-    # )
-    # print(shares_held)
-
-    # print("")
-    # prices = read_csv('Data/prices.csv',
-    #                    types=[str, float], has_headers=False)
-    # print(prices)
-
-    # print('')
-    # portfolio = read_csv('Data/portfolio.dat',
-    #                       types=[str, int, float], delimiter=' ')
-    # print(portfolio)
-
-    # portfolio2 = read_csv('Data/missing_origin.csv', types=[str, int, float])
-    # print(portfolio2)
-
-    # portfolio = read_csv('Data/missing.csv',
-    #                       types=[str, int, float], silence_errors=True)
-    # print(portfolio2)
-
+    
     portfolio3 = read_csv(
         'Data/portfolio.csv.gz', select=['name', 'shares', 'price'], types=[str, int, float])
     print(portfolio3)
