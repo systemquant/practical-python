@@ -1,10 +1,13 @@
-import stock
+class Shape:
+    pass
 
-a = stock.Stock('GOOG', 100, 490.10)
-print(a.name)
-print(a.shares)
-print(a.price)
+class Circle(Shape):
+    def __init__(self, size):
+        self.size = size
+    
 
-b = stock.Stock('AAPL', 50, 122.34)
-c = stock.Stock('IBM', 75, 91.75)
-print(b.shares * b.price)
+if __name__ == '__main__':
+    c = Circle(4.0)
+    print(isinstance(c, Shape))
+    print(type(Circle), type(Shape))
+    

@@ -1,32 +1,32 @@
 # report.py
-#
-# Exercise 2.4
 
-#import csv
+# import csv
 import stock
 import fileparse
 import sys
+import tableformat
 
 
 def read_portfolio(filename):
     portdicts = fileparse.read_csv(
-        filename, select=['name', 'shares', 'price'], types=[str, int, float])
-    portfolio = [stock.Stock(name=s['name'], shares=s['shares'], price=s['price']) for s in portdicts]
-    
+        filename, select=['name', 'shares', 'price'], types=[str, int, float]
+    )
+    portfolio = [
+        stock.Stock(name=s['name'], shares=s['shares'], price=s['price'])
+        for s in portdicts
+    ]
+
     return portfolio
 
 
 def read_prices(filename):
-    prices = dict(fileparse.read_csv(
-        filename, types=[str, float], has_headers=False))
+    prices = dict(fileparse.read_csv(filename, types=[str, float], has_headers=False))
 
     return prices
 
 
-def make_report(portfolio, prices):
+def make_report_data(portfolio, prices):
     report = []
-
-    # print(f'{"Name":>10s}  {"Shares":>10s}  {"Price":>10s}  {"Change":>10s}')
 
     for stock in portfolio:
         name = stock.name
@@ -34,51 +34,54 @@ def make_report(portfolio, prices):
         now_price = prices[name]
 
         profit_indiv = now_price * shares - stock.price * shares
-        # profit += profit_indiv
-        # total_cost += dict['price'] * shares
 
         change = now_price - stock.price
-
-        # print(f'{name} 잔고 손익: {profit_indiv}')
-
-        # money += prices[name] * shares
         summary = (name, shares, prices[name], change)
-
         report.append(summary)
 
     return report
 
 
-def print_report(report):
-    headers = ("Name", "Shares", "Price", "Change")
-    for i in headers:
-        print(f"{i:>10s}", end=" ")
-    print("")
+def print_report(reportdata, formatter):
+    """
+    (name, shares, price, change) 튜플의 리스트로부터 보기 좋게 포매팅한 테이블을 프린팅.
+    """
 
-    print(("-" * 10 + " ") * len(headers))
+    formatter.headings(['Name', 'Shares', 'Price', 'Change'])
 
-    for name, shares, price, change in report:
-        price = round(price, 2)
-        price_str = "$" + str(price)
-
-        print(f"{name:>10s} {shares:>10d} {price_str:>10s} {change:>10.2f}")
+    for name, shares, price, change in reportdata:
+        rowdata = [name, str(shares), f'{price:0.2f}', f'{change:0.2f}']
+        formatter.row(rowdata)
 
 
-def portfolio_report(portfolio_filename, prices_filename):
+def portfolio_report(portfolio_filename, prices_filename, fmt='txt'):
+    """
+    주어진 포트폴리오와 가격 데이터 파일을 가지고 주식 보고서를 작성.
+    """
+    # 데이터 파일 읽기
     portfolio = read_portfolio(portfolio_filename)
     prices = read_prices(prices_filename)
-    report = make_report(portfolio, prices)
-    print_report(report)
+
+    # 보고서 데이터 생성
+    report = make_report_data(portfolio, prices)
+
+    # 프린트
+    formatter = tableformat.create_formatter(fmt)
+    print_report(report, formatter)
 
 
 def main(argv: list):
     if len(argv) == 1:
-        portfolio_report("Data/portfolio.csv", "Data/prices.csv")
-    elif len(argv) != 3:
-        raise SystemExit(f'Usage: {sys.argv[0]} ' 'portfile pricefile')
-    else:
+        portfolio_report('Data/portfolio.csv', 'Data/prices.csv', 'txt')
+    
+    elif len(argv) == 3:
         portfolio_report(argv[1], argv[2])
 
+    elif len(argv) == 4:
+        portfolio_report(argv[1], argv[2], argv[3])  
 
-if __name__ == "__main__":
+    else:
+        raise SystemExit(f'Usage: {sys.argv[0]} ' 'portfile pricefile')
+
+if __name__ == '__main__':
     main(sys.argv)

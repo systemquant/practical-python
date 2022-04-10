@@ -1,9 +1,10 @@
 # pcost.py
 import report
 
+
 def portfolio_cost(filename):
     portfolio = report.read_portfolio(filename)
-    
+
     return sum([s.shares * s.price for s in portfolio])
 
 
@@ -22,4 +23,5 @@ def main(argv: list):
 
 if __name__ == '__main__':
     import sys
+
     main(sys.argv)
