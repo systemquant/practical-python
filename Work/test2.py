@@ -1,6 +1,3 @@
-from tkinter import END
-
-
 def custom_iter(obj):
     _iter = obj.__iter__()
     while True:
