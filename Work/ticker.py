@@ -1,4 +1,3 @@
-from matplotlib.ticker import Formatter
 from follow import follow
 import csv
 import report
