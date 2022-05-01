@@ -5,9 +5,14 @@ import stock
 import fileparse
 import sys
 import tableformat
-
+from portfolio import Portfolio
 
 def read_portfolio(filename):
+    '''
+    주식 포트폴리오 파일을 읽어 딕셔너리의 리스트를 생성.
+    name, shares, price를 키로 사용.
+    '''
+    
     portdicts = fileparse.read_csv(
         filename, select=['name', 'shares', 'price'], types=[str, int, float]
     )
@@ -16,7 +21,7 @@ def read_portfolio(filename):
         for s in portdicts
     ]
 
-    return portfolio
+    return Portfolio(portfolio)
 
 
 def read_prices(filename):

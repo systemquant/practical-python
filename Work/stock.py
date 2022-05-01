@@ -39,4 +39,4 @@ if __name__ == '__main__':
     print(portfolio)
 
     print(goog.cost)
-    goog.shares = '10'
+    #goog.shares = '10'
