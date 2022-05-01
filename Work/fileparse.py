@@ -7,7 +7,7 @@ import gzip
 import pathlib
 
 
-def parse_csv(file, select: bool = None, types: list = [], has_headers: bool = True, delimiter: str = '', silence_errors: bool = False) -> list:
+def parse_csv(file, select: list = [], types: list = [], has_headers: bool = True, delimiter: str = '', silence_errors: bool = False) -> list:
     """
     CSV 파일을 파싱해 레코드의 목록을 생성
     """
@@ -64,7 +64,7 @@ def parse_csv(file, select: bool = None, types: list = [], has_headers: bool = T
     return records
 
 
-def read_csv(filename: str, select: bool = None, types: list = [], has_headers: bool = True, delimiter: str = '', silence_errors: bool = False) -> list:
+def read_csv(filename: str, select: list = [], types: list = [], has_headers: bool = True, delimiter: str = '', silence_errors: bool = False) -> list:
     path = pathlib.Path(filename)
     suffix_list = path.suffixes
 
