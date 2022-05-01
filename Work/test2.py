@@ -1,3 +1,6 @@
+from tkinter import END
+
+
 def custom_iter(obj):
     _iter = obj.__iter__()
     while True:
@@ -6,6 +9,18 @@ def custom_iter(obj):
         except StopIteration:
             break
 
-with open("Data/portfolio.csv") as f:
-    custom_iter(f)
+def filematch(filename, substr):
+    with open(filename, 'r') as f:
+        for line in f:
+            if substr in line:
+                yield line
+
+if __name__ == '__main__':
+    # with open("Data/portfolio.csv") as f:
+    #     custom_iter(f)
+        
+    for line in filematch("Data/portfolio.csv", 'IBM'):
+        print(line, end='')
+    
+
 
