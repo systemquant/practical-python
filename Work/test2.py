@@ -16,8 +16,18 @@ if __name__ == '__main__':
     # with open("Data/portfolio.csv") as f:
     #     custom_iter(f)
         
-    for line in filematch("Data/portfolio.csv", 'IBM'):
-        print(line, end='')
-    
+    #for line in filematch("Data/portfolio.csv", 'IBM'):
+    #    print(line, end='')
+
+    a = '''\    /\\
+ )  ( ')
+(  /  )
+ \(__)|
+'''
+
+    print(a)
+
+    for line in a.split('\n'):
+        print('fmt.Println("' + line + '")')
 
 
