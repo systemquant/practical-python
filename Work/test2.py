@@ -1,33 +1,45 @@
-def custom_iter(obj):
-    _iter = obj.__iter__()
-    while True:
-        try:
-            print(_iter.__next__(), end='')
-        except StopIteration:
-            break
+# a =[{'name': 'AA', 'price': 32.2, 'shares': 100},
+# {'name': 'IBM', 'price': 91.1, 'shares': 50},
+# {'name': 'CAT', 'price': 83.44, 'shares': 150},
+# {'name': 'MSFT', 'price': 51.23, 'shares': 200},
+# {'name': 'GE', 'price': 40.37, 'shares': 95},
+# {'name': 'MSFT', 'price': 65.1, 'shares': 50},
+# {'name': 'IBM', 'price': 70.44, 'shares': 100}]
 
-def filematch(filename, substr):
-    with open(filename, 'r') as f:
-        for line in f:
-            if substr in line:
-                yield line
+# def stock_name(s):
+#     return s['name']
 
-if __name__ == '__main__':
-    # with open("Data/portfolio.csv") as f:
-    #     custom_iter(f)
-        
-    #for line in filematch("Data/portfolio.csv", 'IBM'):
-    #    print(line, end='')
+# #print(a.sort(key=stock_name))
+# print(sorted(a, key=lambda s: s['name']))
 
-    a = '''\    /\\
- )  ( ')
-(  /  )
- \(__)|
-'''
+# def add(x, y):
+#     def do_add():
+#         print(f'Adding {x} + {y} -> {x+y}')
+#         def dont_add():
+#             print('hihi')
+#             return x+y
+#         return dont_add
 
-    print(a)
+#     return do_add
 
-    for line in a.split('\n'):
-        print('fmt.Println("' + line + '")')
+# k = add(3, 4)
+# j=k()
+# print(j())
 
+import time
 
+def after(seconds, func):
+    time.sleep(seconds)
+    print('Excuting function')
+    func()
+
+def greeting():
+    print('Hello World')
+
+def add(x, y):
+    def do_add():
+        print(f"Adding {x} + {y} -> {x+y}")
+        return x+y
+    return do_add
+
+after(4, add(2, 3))
