@@ -1,7 +1,7 @@
 # fileparse.py
 #
 # Exercise 3.3
-import collections.abc as collections
+import collections
 import csv
 import gzip
 import pathlib
@@ -47,7 +47,7 @@ def parse_csv(file, select: list = [], types: list = [], has_headers: bool = Tru
 
         if types:
             try:
-                row = [func(val) for func, val in zip(types, row)]
+                row = [func(val) if val else collections.defaultdict(func)[0] for func, val in zip(types, row)]
             except ValueError as e:
                 if not(silence_errors):
                     print(f"Row {i+1}: Couldn't convert {row}")
