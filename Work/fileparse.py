@@ -1,7 +1,7 @@
 # fileparse.py
 #
 # Exercise 3.3
-import collections
+import collections.abc as collections
 import csv
 import gzip
 import pathlib
