@@ -7,24 +7,30 @@ import gzip
 import pathlib
 
 
-def parse_csv(file, select: list = [], types: list = [], has_headers: bool = True, delimiter: str = '', silence_errors: bool = False) -> list:
+def parse_csv(
+    file,
+    select: list = [],
+    types: list = [],
+    has_headers: bool = True,
+    delimiter: str = '',
+    silence_errors: bool = False,
+) -> list:
     """
     CSV 파일을 파싱해 레코드의 목록을 생성
     """
 
     # Filetype Shielder
     if isinstance(file, str):
-        raise TypeError(f"Type {type(file)} is not compatible")
+        raise TypeError(f'Type {type(file)} is not compatible')
 
-    elif not(isinstance(file, collections.Iterable)):
-        raise TypeError(f"Type {type(file)} is not iterable")
+    elif not (isinstance(file, collections.Iterable)):
+        raise TypeError(f'Type {type(file)} is not iterable')
 
     # header conflict check
-    if select and not(has_headers):
-        raise RuntimeError("select argument requires column headers")
+    if select and not (has_headers):
+        raise RuntimeError('select argument requires column headers')
 
-    rows = csv.reader(
-        file, delimiter=delimiter) if delimiter else csv.reader(file)
+    rows = csv.reader(file, delimiter=delimiter) if delimiter else csv.reader(file)
 
     # 헤더를 읽음
     if has_headers:
@@ -47,11 +53,11 @@ def parse_csv(file, select: list = [], types: list = [], has_headers: bool = Tru
 
         if types:
             try:
-                row = [func(val) if val else collections.defaultdict(func)[0] for func, val in zip(types, row)]
+                row = [func(val) if val else func() for func, val in zip(types, row)]
             except ValueError as e:
-                if not(silence_errors):
+                if not (silence_errors):
                     print(f"Row {i+1}: Couldn't convert {row}")
-                    print(f"Row {i+1}: Reason {e}")
+                    print(f'Row {i+1}: Reason {e}')
 
         if has_headers:
             record = dict(zip(headers, row))
@@ -64,7 +70,14 @@ def parse_csv(file, select: list = [], types: list = [], has_headers: bool = Tru
     return records
 
 
-def read_csv(filename: str, select: list = [], types: list = [], has_headers: bool = True, delimiter: str = '', silence_errors: bool = False) -> list:
+def read_csv(
+    filename: str,
+    select: list = [],
+    types: list = [],
+    has_headers: bool = True,
+    delimiter: str = '',
+    silence_errors: bool = False,
+) -> list:
     path = pathlib.Path(filename)
     suffix_list = path.suffixes
 
@@ -76,8 +89,8 @@ def read_csv(filename: str, select: list = [], types: list = [], has_headers: bo
         suffix_dict = {'.csv.gz': gzip.open(filename, 'rt')}
         with suffix_dict[''.join(suffix_list)] as f:
             return parse_csv(f, select, types, has_headers, delimiter, silence_errors)
-        
-        '''
+
+        """
         # Decompress
         with open(filename, 'rb') as f:
             decom: bytes = None
@@ -104,11 +117,14 @@ def read_csv(filename: str, select: list = [], types: list = [], has_headers: bo
             
             return parse_csv(decom, select, types, has_headers, delimiter, silence_errors)
         
-        '''
+        """
 
 
-if __name__ == "__main__":
-    
+if __name__ == '__main__':
+
     portfolio3 = read_csv(
-        'Data/portfolio.csv.gz', select=['name', 'shares', 'price'], types=[str, int, float])
+        'Data/portfolio.csv.gz',
+        select=['name', 'shares', 'price'],
+        types=[str, int, float],
+    )
     print(portfolio3)
