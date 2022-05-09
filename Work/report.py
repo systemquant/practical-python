@@ -14,14 +14,11 @@ def read_portfolio(filename, **opts):
     name, shares, price를 키로 사용.
     """
     portdicts = fileparse.read_csv(
-        filename, select=["name", "shares", "price"], types=[str, int, float], **opts
+        filename, select=['name', 'shares', 'price'], types=[str, int, float], **opts
     )
 
-    portfolio = [
-        stock.Stock(**s)
-        for s in portdicts
-    ]
-    
+    portfolio = [stock.Stock(**s) for s in portdicts]
+
     return Portfolio(portfolio)
 
 
@@ -53,14 +50,14 @@ def print_report(reportdata, formatter):
     (name, shares, price, change) 튜플의 리스트로부터 보기 좋게 포매팅한 테이블을 프린팅.
     """
 
-    formatter.headings(["Name", "Shares", "Price", "Change"])
+    formatter.headings(['Name', 'Shares', 'Price', 'Change'])
 
     for name, shares, price, change in reportdata:
-        rowdata = [name, str(shares), f"{price:0.2f}", f"{change:0.2f}"]
+        rowdata = [name, str(shares), f'{price:0.2f}', f'{change:0.2f}']
         formatter.row(rowdata)
 
 
-def portfolio_report(portfolio_filename, prices_filename, fmt="txt"):
+def portfolio_report(portfolio_filename, prices_filename, fmt='txt'):
     """
     주어진 포트폴리오와 가격 데이터 파일을 가지고 주식 보고서를 작성.
     """
@@ -78,7 +75,7 @@ def portfolio_report(portfolio_filename, prices_filename, fmt="txt"):
 
 def main(argv: list):
     if len(argv) == 1:
-        portfolio_report("Data/portfolio.csv", "Data/prices.csv", "txt")
+        portfolio_report('Data/portfolio.csv', 'Data/prices.csv', 'txt')
 
     elif len(argv) == 3:
         portfolio_report(argv[1], argv[2])
@@ -87,8 +84,8 @@ def main(argv: list):
         portfolio_report(argv[1], argv[2], argv[3])
 
     else:
-        raise SystemExit(f"Usage: {sys.argv[0]} " "portfile pricefile")
+        raise SystemExit(f'Usage: {sys.argv[0]} ' 'portfile pricefile')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main(sys.argv)
