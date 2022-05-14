@@ -1,4 +1,9 @@
 # typedproperty.py
+String = lambda name: typedproperty(name, str)
+Integer = lambda name: typedproperty(name, int)
+Float = lambda name: typedproperty(name, float)
+
+
 def typedproperty(name, expected_type):
     private_name = '_' + name
 

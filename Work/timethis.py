@@ -1,12 +1,11 @@
 import time
 
-
 def timethis(func):
     def wrapper(*args, **kwargs):
         start = time.time()
         r = func(*args, **kwargs)
         end = time.time()
-        print(f'{func.__module__}.{func.__name__}: {end-start}s, result: {r}')
+        print(f'{func.__module__}.{func.__name__}: {end-start}s, result')
 
     return wrapper
 
