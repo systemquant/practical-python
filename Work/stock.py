@@ -7,10 +7,10 @@ class Stock:
     shares = Integer('shares')
     price = Float('price')
 
-    def __init__(self, name_: str, shares_: int, price_: float) -> None:
-        self.name = name_
-        self.shares = shares_
-        self.price = price_
+    def __init__(self, name: str, shares: int, price: float) -> None:
+        self.name = name
+        self.shares = shares
+        self.price = price
 
     def __repr__(self) -> str:
         return f'Stock({self.name!r}, {self.shares!r}, {self.price!r})'

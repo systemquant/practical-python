@@ -13,13 +13,8 @@ def read_portfolio(filename, **opts):
     주식 포트폴리오 파일을 읽어 딕셔너리의 리스트를 생성.
     name, shares, price를 키로 사용.
     """
-    portdicts = fileparse.read_csv(
-        filename, select=['name', 'shares', 'price'], types=[str, int, float], **opts
-    )
 
-    portfolio = [stock.Stock(**s) for s in portdicts]
-
-    return Portfolio(portfolio)
+    return Portfolio.from_csv(filename, **opts)
 
 
 def read_prices(filename):
