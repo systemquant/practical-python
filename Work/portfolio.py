@@ -37,7 +37,10 @@ class Portfolio:
             )
 
             for d in portdicts:
-                self.append(stock.Stock(**d))
+                try:
+                    self.append(stock.Stock(**d))
+                except TypeError as e:
+                    pass
 
         return self
 

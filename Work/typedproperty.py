@@ -15,6 +15,8 @@ def typedproperty(name, expected_type):
     def prop(self, value):
         if not isinstance(value, expected_type):
             raise TypeError(f'Expected {expected_type}')
-        setattr(self, private_name, value)
+        
+        else:
+            setattr(self, private_name, value)
 
     return prop

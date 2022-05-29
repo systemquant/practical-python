@@ -6,6 +6,16 @@ import csv
 import gzip
 import pathlib
 
+import logging
+'''
+logging.basicConfig(
+    filename = f'{__file__.rstrip(".py")}.log',
+    filemode = 'a+',
+    level = logging.INFO,
+)
+logging.getLogger().addHandler(logging.StreamHandler())
+'''
+logger = logging.getLogger(__name__)
 
 def parse_csv(
     file,
@@ -53,11 +63,12 @@ def parse_csv(
 
         if types:
             try:
-                row = [func(val) if val else func() for func, val in zip(types, row)]
+                #row = [func(val) if val else func() for func, val in zip(types, row)]
+                row = [func(val) for func, val in zip(types, row)]
             except ValueError as e:
                 if not (silence_errors):
-                    print(f"Row {i+1}: Couldn't convert {row}")
-                    print(f'Row {i+1}: Reason {e}')
+                    logger.warning(f"Row {i+1}: Couldn't convert {row}")
+                    logger.debug(f'Row {i+1}: Reason {e}')
 
         if has_headers:
             record = dict(zip(headers, row))
@@ -121,10 +132,13 @@ def read_csv(
 
 
 if __name__ == '__main__':
-
+    
     portfolio3 = read_csv(
         'Data/portfolio.csv.gz',
         select=['name', 'shares', 'price'],
         types=[str, int, float],
     )
     print(portfolio3)
+    
+    import report
+    a = report.read_portfolio('Data/missing.csv')
