@@ -1,2 +1,2 @@
-# MANIFEST.in
 include *.csv
+recursive-include porty/Data *.txt *.csv
