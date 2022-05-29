@@ -23,16 +23,3 @@ class Stock:
         self.shares -= nshares
 
         # return nshares * self.price
-
-
-if __name__ == '__main__':
-    goog = Stock('GOOG', 100, 490.1)
-    print(repr(goog))
-
-    import report
-
-    portfolio = report.read_portfolio('Data/portfolio.csv')
-    print(portfolio)
-
-    print(goog.cost)
-    # goog.shares = '10'
