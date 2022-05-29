@@ -1,4 +1,4 @@
-import stock, fileparse
+from . import stock, fileparse
 
 
 class Portfolio:
