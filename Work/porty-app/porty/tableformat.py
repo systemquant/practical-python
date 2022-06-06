@@ -1,7 +1,9 @@
 # tableformat.py
 
+
 class FormatError(Exception):
     pass
+
 
 class TableFormatter:
     def headings(self, table):
@@ -27,6 +29,7 @@ def create_formatter(fmt):
         return format_dict[fmt]()
     except KeyError as name:
         raise FormatError(f'Unknown table format {fmt}')
+
 
 def print_table(portfolio, headings, formatter):
     formatter.headings(headings)
@@ -93,6 +96,7 @@ class HTMLTableFormatter2(TableFormatter):
             html += self.openclose(row, 'td')
 
         self.lineclose(html)
+
 
 if __name__ == '__main__':
     formatter = create_formatter('xls')

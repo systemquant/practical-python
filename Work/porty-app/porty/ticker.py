@@ -5,7 +5,7 @@ from . import report, tableformat
 
 def select_columns(rows, indices):
     return ([row[index] for index in indices] for row in rows)
- 
+
 
 # def convert_types(rows, types):
 #     for row in rows:

@@ -3,7 +3,7 @@
 import setuptools
 
 setuptools.setup(
-    name="porty", 
+    name="porty",
     version="0.0.1",
     author="Your Name",
     author_email="you@example.com",

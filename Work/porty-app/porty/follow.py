@@ -2,12 +2,13 @@
 import os
 import time
 
+
 def follow(filename):
-    #f = open(filename)
+    # f = open(filename)
 
     with open(filename) as f:
         f.seek(0, os.SEEK_END)
-        
+
         while True:
             line = f.readline()
             if line == '':
@@ -15,7 +16,8 @@ def follow(filename):
                 continue
 
             yield line
-            
+
+
 def filematch(lines, substr):
     for line in lines:
         if substr in line:
@@ -23,11 +25,9 @@ def filematch(lines, substr):
 
 
 if __name__ == '__main__':
-    import report
+    from . import report
 
     portfolio = report.read_portfolio('Data/portfolio.csv')
-
-    
 
     '''
     # 연습 문제 6.8: 단순한 파이프라인 구성
@@ -49,4 +49,3 @@ if __name__ == '__main__':
             print(f'{name:>10s} {price:>10.2f} {change:>10.2f}')
     '''
 
-    

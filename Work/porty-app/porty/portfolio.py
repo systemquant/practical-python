@@ -29,12 +29,7 @@ class Portfolio:
     def from_csv(cls, filename, **opts):
         self = cls()
         with open(filename, 'r') as lines:
-            portdicts = fileparse.parse_csv(
-                lines,
-                select=['name', 'shares', 'price'],
-                types=[str, int, float],
-                **opts
-            )
+            portdicts = fileparse.parse_csv(lines, select=['name', 'shares', 'price'], types=[str, int, float], **opts)
 
             for d in portdicts:
                 try:

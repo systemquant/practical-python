@@ -4,13 +4,12 @@ from . import stock
 
 
 class TestStock(unittest.TestCase):
-
     def test_create(self):
         s = stock.Stock('GOOG', 100, 490.1)
         self.assertEqual(s.name, 'GOOG')
         self.assertEqual(s.shares, 100)
         self.assertEqual(s.price, 490.1)
-        
+
         self.assertEqual(s.cost, 49010.0)
 
         shares_ = deepcopy(s.shares)
@@ -18,7 +17,7 @@ class TestStock(unittest.TestCase):
         s.sell(sell_amount)
         self.assertEqual(s.shares, shares_ - sell_amount)
 
-        #self.assertIsInstance(s.shares, int)
+        # self.assertIsInstance(s.shares, int)
 
     def test_bad_shares(self):
         s = stock.Stock('GOOG', 100, 490.1)
